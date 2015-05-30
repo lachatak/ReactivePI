@@ -15,7 +15,7 @@ abstract class GPIOPin(pinNumber: Int, direction: String) {
     // Write the pin number to /sys/class/gpio/export to make the pin active.
     pinRegistrationWriter.write(pinNumber.toString())
 
-    // Write the word 'out' to /sys/class/gpio/gpio{pinnumber} to make it an output pin.
+    // Write the word 'out/in' to /sys/class/gpio/gpio{pinnumber}/direction to make it an output or input pin.
     pinModeWriter.write(direction)
     pinModeWriter.close()
   } catch {
@@ -30,6 +30,7 @@ abstract class GPIOPin(pinNumber: Int, direction: String) {
     try {
       val pinRegistrationWriter = new PrintWriter(new File(pinUnregistrationFilePath))
 
+      // Write the number of the pin to /sys/class/gpio/unexport to close access to it
       pinRegistrationWriter.write(pinNumber.toString())
       pinRegistrationWriter.close()
     } catch {
