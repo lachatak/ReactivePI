@@ -3,7 +3,7 @@ package reactivepi.gpio
 /**
  * Provides access to the GPIO expansion header on the raspberry PI
  */
-object GPIO {
+object GPIODriver {
   /**
    * Registers a pin as input
    * @param pinNumber Pin number to register
