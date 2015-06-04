@@ -1,7 +1,7 @@
 package reactivepi
 
 import akka.actor.{Props, ActorRef, Actor}
-import reactivepi.gpio.GPIODriver
+import reactivepi.gpio.{InputPin, GPIODriver}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
@@ -17,7 +17,7 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
 
   import GPIOSubscriptionActor._
 
-  val inputPin = GPIODriver.input(pinNumber)
+  var inputPin:InputPin = null
   var currentValue = inputPin.read()
 
   implicit val ec: ExecutionContext = context.dispatcher
@@ -40,6 +40,17 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
     }
 
     currentValue = inputValue
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preStart(): Unit = {
+    inputPin = GPIODriver.input(pinNumber)
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+    super.preRestart(reason, message)
+    inputPin.close()
   }
 
   @throws[Exception](classOf[Exception])

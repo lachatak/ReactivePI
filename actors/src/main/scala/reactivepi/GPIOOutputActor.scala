@@ -1,14 +1,14 @@
 package reactivepi
 
 import akka.actor.{Props, ActorLogging, Actor}
-import reactivepi.gpio.GPIODriver
+import reactivepi.gpio.{OutputPin, GPIODriver}
 
 object GPIOOutputActor {
   def props(pinNumber: Int) = Props(new GPIOOutputActor(pinNumber))
 }
 
 class GPIOOutputActor(pinNumber: Int) extends Actor with ActorLogging {
-  val outputPin = GPIODriver.output(pinNumber)
+  var outputPin: OutputPin = null
 
   def receive = {
     case GPIO.Write(data) => writeDataToPort(data)
@@ -20,6 +20,17 @@ class GPIOOutputActor(pinNumber: Int) extends Actor with ActorLogging {
     } else {
       outputPin.low()
     }
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preStart(): Unit = {
+    outputPin = GPIODriver.output(pinNumber)
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+    super.preRestart(reason, message)
+    outputPin.close()
   }
 
   @throws[Exception](classOf[Exception])
