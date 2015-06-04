@@ -3,6 +3,7 @@ package reactivepi
 import akka.actor.{Props, ActorRef, Actor}
 import reactivepi.gpio.GPIODriver
 
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -19,6 +20,8 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
   val inputPin = GPIODriver.input(pinNumber)
   var currentValue = inputPin.read()
 
+  implicit val ec: ExecutionContext = context.dispatcher
+
   // Read the initial value and start the scheduler
   readInputValue(initial = true)
   context.system.scheduler.schedule(1 millisecond, 1 millisecond, self, Tick)
@@ -28,7 +31,7 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
   def receive = {
     case Tick => readInputValue(initial = false)
   }
-  
+
   private def readInputValue(initial: Boolean): Unit = {
     val inputValue = inputPin.read()
 
