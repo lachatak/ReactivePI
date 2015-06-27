@@ -2,6 +2,8 @@ name := "ReactivePI"
 
 version := "0.1-SNAPSHOT"
 
+organization := "nl.fizzylogic.reactivepi"
+
 scalaVersion := "2.11.6"
 
 publishMavenStyle := true
