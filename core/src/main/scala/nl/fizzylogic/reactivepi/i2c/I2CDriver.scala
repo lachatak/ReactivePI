@@ -29,7 +29,7 @@ class I2CDriver(bus: Int, address: Int) {
    * @param length  Number of bytes to read
    * @return        Returns the data read from the device.
    */
-  def read(length: Int) = {
+  def read(length: Int): Array[Byte] = {
     val data = new Array[Byte](length)
     val readBytes = deviceFile.read(data, 0, length)
 
@@ -47,7 +47,7 @@ class I2CDriver(bus: Int, address: Int) {
    * @param length  Number of bytes to read
    * @return        Returns the data read from the device
    */
-  def read(registerAddress: Byte, length: Int) = {
+  def read(registerAddress: Byte, length: Int): Array[Byte] = {
     val data = new Array[Byte](length)
     val addressBuffer = Array(registerAddress)
 
@@ -77,21 +77,21 @@ class I2CDriver(bus: Int, address: Int) {
    * @param length  Number of bytes to write
    */
   def write(registerAddress:Byte, data: Array[Byte], length: Int): Unit = {
-    val bytesWritten = deviceFile.write(Array(registerAddress) ++ data,0,1)
+    deviceFile.write(Array(registerAddress) ++ data,0,1)
   }
 
   /**
    * Writes a single byte to the device
    * @param data  Data to send
    */
-  def write(data: Byte) = {
-    val bytesWritten = deviceFile.write(Array(data),0,1)
+  def write(data: Byte): Unit = {
+    deviceFile.write(Array(data),0,1)
   }
 
   /**
    * Closes access to the I2C device
    */
-  def close() = {
+  def close(): Unit = {
     deviceFile.close()
   }
 }

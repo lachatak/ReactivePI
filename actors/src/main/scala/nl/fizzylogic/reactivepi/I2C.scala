@@ -14,7 +14,7 @@
 
 package nl.fizzylogic.reactivepi
 
-import akka.actor.ActorRefFactory
+import akka.actor.{ActorRef, ActorRefFactory}
 
 object I2C {
 
@@ -37,7 +37,7 @@ case class I2C(bus: Int)(implicit actorRefFactory: ActorRefFactory) {
    * @param address Address of the bus
    * @return        Returns the actor for the device
    */
-  def device(address: Int) = {
+  def device(address: Int): ActorRef = {
     actorRefFactory.actorOf(I2CDeviceActor.props(bus, address))
   }
 }

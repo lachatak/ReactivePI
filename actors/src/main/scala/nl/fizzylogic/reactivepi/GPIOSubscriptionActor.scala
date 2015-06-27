@@ -25,15 +25,20 @@ import scala.language.postfixOps
 object GPIOSubscriptionActor {
   val Tick = "tick"
 
-  def props(pinNumber: Int, target: ActorRef) = Props(new GPIOSubscriptionActor(pinNumber, target))
+  def props(pinNumber: Int, target: ActorRef): Props = Props(new GPIOSubscriptionActor(pinNumber, target))
 }
 
 class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
 
   import GPIOSubscriptionActor._
 
+  // scalastyle:off null
+  // Disable null checking here, because we don't have an input pin yet during construction.
+  // Only when the actor is started, we want to assign an input pin, so that when something
+  // goes wrong and we restart the actor, things can be reinitialized properly.
   var inputPin:InputPin = null
-  var currentValue = inputPin.read()
+  var currentValue:Byte = 0
+  // scalastyle:on
 
   implicit val ec: ExecutionContext = context.dispatcher
 
@@ -43,7 +48,7 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
 
   // Every time the timeout on the scheduler is triggered
   // the input value is read and send to the target actor.
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
     case Tick => readInputValue(initial = false)
   }
 
@@ -60,6 +65,7 @@ class GPIOSubscriptionActor(pinNumber: Int, target: ActorRef) extends Actor {
   @throws[Exception](classOf[Exception])
   override def preStart(): Unit = {
     inputPin = GPIODriver.input(pinNumber)
+    currentValue = inputPin.read()
   }
 
   @throws[Exception](classOf[Exception])

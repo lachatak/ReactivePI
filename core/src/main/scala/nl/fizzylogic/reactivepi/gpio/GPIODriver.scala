@@ -23,7 +23,7 @@ object GPIODriver {
    * @param pinNumber Pin number to register
    * @return  Pin input driver
    */
-  def input(pinNumber: Int) = {
+  def input(pinNumber: Int): InputPin = {
     new InputPin(pinNumber)
   }
 
@@ -32,7 +32,7 @@ object GPIODriver {
    * @param pinNumber Pin number to register
    * @return  Pin output driver
    */
-  def output(pinNumber: Int) = {
+  def output(pinNumber: Int): OutputPin = {
     new OutputPin(pinNumber)
   }
 }

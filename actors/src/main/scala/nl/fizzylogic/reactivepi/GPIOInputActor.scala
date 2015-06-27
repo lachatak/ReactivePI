@@ -18,13 +18,18 @@ import akka.actor.{Actor, ActorLogging, Props}
 import nl.fizzylogic.reactivepi.gpio.{InputPin, GPIODriver}
 
 object GPIOInputActor {
-  def props(pinNumber: Int) = Props(new GPIOInputActor(pinNumber))
+  def props(pinNumber: Int): Props = Props(new GPIOInputActor(pinNumber))
 }
 
 class GPIOInputActor(pinNumber: Int) extends Actor with ActorLogging {
+  // scalastyle:off null
+  // Disable null checking here, because we don't have an input pin yet during construction.
+  // Only when the actor is started, we want to assign an input pin, so that when something
+  // goes wrong and we restart the actor, things can be reinitialized properly.
   var inputPin : InputPin = null
+  // scalastyle:on null
 
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
     case GPIO.Read => readDataFromPort()
   }
 

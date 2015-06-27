@@ -24,7 +24,7 @@ object I2CDeviceActor {
 class I2CDeviceActor(bus: Int, address: Int) extends Actor {
   private val driver = new I2CDriver(bus,address)
 
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
     case I2C.Read(register, length) => readFromDevice(register, length)
     case I2C.Write(register,data) => writeToDevice(register,data)
   }
