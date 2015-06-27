@@ -1,6 +1,4 @@
-name := "ReactivePI-Actors"
-
-version := "0.0.1"
+name := "reactivepi-actors"
 
 scalaVersion:= "2.11.6"
 

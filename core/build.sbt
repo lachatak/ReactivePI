@@ -1,5 +1,3 @@
-name := "ReactivePI-Core"
-
-version := "0.0.1"
+name := "reactivepi-core"
 
 scalaVersion := "2.11.6"

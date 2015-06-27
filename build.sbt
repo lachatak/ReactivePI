@@ -1,6 +1,6 @@
 name := "ReactivePI"
 
-version := "0.0.1"
+version := "0.1-SNAPSHOT"
 
 scalaVersion := "2.11.6"
 
@@ -9,14 +9,6 @@ publishMavenStyle := true
 publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
-
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
 
 pomExtra := (
   <url>http://github.com/wmeints/reactivePI</url>
@@ -38,3 +30,4 @@ pomExtra := (
       <url>http://www.fizzylogic.nl/</url>
     </developer>
   </developers>)
+
