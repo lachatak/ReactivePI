@@ -13,10 +13,10 @@
 //  limitations under the License.
 
 
-package reactivepi
+package nl.fizzylogic.reactivepi
 
 import akka.actor.{Props, ActorRef, Actor}
-import reactivepi.gpio.{InputPin, GPIODriver}
+import nl.fizzylogic.reactivepi.gpio.{InputPin, GPIODriver}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._

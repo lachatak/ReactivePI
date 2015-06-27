@@ -12,27 +12,26 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi.gpio
+package nl.fizzylogic.reactivepi.gpio
+
+import java.io._
+import java.nio.file.{Files, Paths}
 
 /**
- * Provides access to the GPIO expansion header on the raspberry PI
+ * Use the input pin class to get access to the value of a GPIO pin
  */
-object GPIODriver {
+class InputPin(pinNumber: Int) extends GPIOPin(pinNumber, "in") {
   /**
-   * Registers a pin as input
-   * @param pinNumber Pin number to register
-   * @return  Pin input driver
+   * Reads the value of the GPIO pin
+   * @return  1 when the pin state is high; Otherwise 0.
    */
-  def input(pinNumber: Int) = {
-    new InputPin(pinNumber)
-  }
-
-  /**
-   * Registers a pin as output
-   * @param pinNumber Pin number to register
-   * @return  Pin output driver
-   */
-  def output(pinNumber: Int) = {
-    new OutputPin(pinNumber)
+  def read(): Byte = {
+    try {
+      val readBytes = Files.readAllBytes(Paths.get(pinValueFilePath))
+      readBytes(0)
+    } catch {
+      case e:IOException => throw new GPIOException(
+        s"Failed to close access to pin ${pinNumber}: ${e.getMessage()}")
+    }
   }
 }

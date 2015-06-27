@@ -12,10 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi
+package nl.fizzylogic.reactivepi
 
 import akka.actor.{Props, Actor}
-import reactivepi.i2c.I2CDriver
+import nl.fizzylogic.reactivepi.i2c.I2CDriver
 
 object I2CDeviceActor {
   def props(bus: Int, address: Int): Props = Props(new I2CDeviceActor(bus,address))

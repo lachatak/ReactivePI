@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 
-package reactivepi
+package nl.fizzylogic.reactivepi
 
 import akka.actor.{ActorRef, ActorRefFactory}
 

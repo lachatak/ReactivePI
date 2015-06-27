@@ -12,10 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi
+package nl.fizzylogic.reactivepi
 
 import akka.actor.{Props, ActorLogging, Actor}
-import reactivepi.gpio.{OutputPin, GPIODriver}
+import nl.fizzylogic.reactivepi.gpio.{OutputPin, GPIODriver}
 
 object GPIOOutputActor {
   def props(pinNumber: Int) = Props(new GPIOOutputActor(pinNumber))

@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi.gpio
+package nl.fizzylogic.reactivepi.gpio
 
 import java.io._
 

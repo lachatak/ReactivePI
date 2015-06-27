@@ -12,26 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi.gpio
+package nl.fizzylogic.reactivepi.gpio
 
-import java.io._
-import java.nio.file.{Files, Paths}
+class GPIOException(message:String) extends Exception(message) {
 
-/**
- * Use the input pin class to get access to the value of a GPIO pin
- */
-class InputPin(pinNumber: Int) extends GPIOPin(pinNumber, "in") {
-  /**
-   * Reads the value of the GPIO pin
-   * @return  1 when the pin state is high; Otherwise 0.
-   */
-  def read(): Byte = {
-    try {
-      val readBytes = Files.readAllBytes(Paths.get(pinValueFilePath))
-      readBytes(0)
-    } catch {
-      case e:IOException => throw new GPIOException(
-        s"Failed to close access to pin ${pinNumber}: ${e.getMessage()}")
-    }
-  }
 }

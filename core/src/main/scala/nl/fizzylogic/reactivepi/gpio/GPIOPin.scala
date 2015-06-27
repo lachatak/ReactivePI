@@ -1,4 +1,4 @@
-package reactivepi.gpio
+package nl.fizzylogic.reactivepi.gpio
 
 import java.io.{File, IOException, PrintWriter}
 

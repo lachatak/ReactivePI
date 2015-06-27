@@ -12,8 +12,27 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-package reactivepi.gpio
+package nl.fizzylogic.reactivepi.gpio
 
-class GPIOException(message:String) extends Exception(message) {
+/**
+ * Provides access to the GPIO expansion header on the raspberry PI
+ */
+object GPIODriver {
+  /**
+   * Registers a pin as input
+   * @param pinNumber Pin number to register
+   * @return  Pin input driver
+   */
+  def input(pinNumber: Int) = {
+    new InputPin(pinNumber)
+  }
 
+  /**
+   * Registers a pin as output
+   * @param pinNumber Pin number to register
+   * @return  Pin output driver
+   */
+  def output(pinNumber: Int) = {
+    new OutputPin(pinNumber)
+  }
 }

@@ -23,7 +23,7 @@ pomExtra := (
   <licenses>
     <license>
       <name>Apache2</name>
-      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <url>https://raw.githubusercontent.com/wmeints/ReactivePI/master/LICENSE</url>
       <distribution>repo</distribution>
     </license>
   </licenses>

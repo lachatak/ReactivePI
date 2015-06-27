@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 import akka.actor.{Props, ActorSystem, Actor}
-import reactivepi.GPIO
+import nl.fizzylogic.reactivepi.GPIO
 
 class GPIOSamples extends Actor {
   val input = GPIO.input(1)

@@ -6,6 +6,6 @@ object ReactivePIBuild extends Build {
   lazy val actors = Project(id = "actors",
     base = file("actors")) dependsOn("core")
 
-  lazy val reactivepi = Project(id = "reactivepi",
+  lazy val reactivepi = Project(id = "nl.fizzylogic.reactivepi",
     base = file(".")) aggregate("core","actors")
 }
