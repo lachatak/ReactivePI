@@ -17,9 +17,5 @@ low level access to the IO ports
 [Please check the wiki for more information](https://github.com/wmeints/ReactivePI/wiki)
 
 ## Development status
-I'm working on getting a basic API layed out.
-Also, I don't have a good way to test things, this needs
-work as well to make my life easier.
-
-Currently the GPIO ports can be controlled. The I2C code is still a work in progress as is the SPI interface.
-Keep an eye out for more information as things progress.
+At this point, the GPIO and I2C protocols are supported. It needs more testing, but you can start to use this library
+by compiling and publishing it locally if you want to.
