@@ -1,5 +1,6 @@
 Reactive PI
 ===========
+[![Build Status](https://travis-ci.org/wmeints/ReactivePI.svg?branch=master)](https://travis-ci.org/wmeints/ReactivePI)
 
 Reactive PI is a library based on akka and scala that allows
 developers to use the various I/O ports on their raspberry
