@@ -11,7 +11,7 @@ object BuildSettings {
     Defaults.defaultSettings ++
       Seq(
         version := "1.0",
-        scalaVersion in ThisBuild := "2.11.2",
+        scalaVersion in ThisBuild := "2.11.7",
         parallelExecution in ThisBuild := false,
         scalacOptions := Seq(
           "-feature",

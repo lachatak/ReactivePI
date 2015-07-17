@@ -17,9 +17,9 @@ package nl.fizzylogic.reactivepi.gpio
 import java.io.{File, IOException, PrintWriter}
 
 abstract class GPIOPin(pinNumber: Int, direction: String) {
-  val pinDirectionFilePath = s"/sys/class/gpio${pinNumber}/direction"
-  val pinRegistrationFilePath = s"/sys/class/gpio/export"
-  val pinUnregistrationFilePath = s"/sys/class/gpio/unexport"
+  val pinDirectionFilePath = s"/sys/class/gpio/gpio${pinNumber}/direction"
+  val pinRegistrationFilePath = "/sys/class/gpio/export"
+  val pinUnregistrationFilePath = "/sys/class/gpio/unexport"
   val pinValueFilePath = s"/sys/class/gpio/gpio${pinNumber}/value"
 
   try {
@@ -28,9 +28,12 @@ abstract class GPIOPin(pinNumber: Int, direction: String) {
 
     // Write the pin number to /sys/class/gpio/export to make the pin active.
     pinRegistrationWriter.write(pinNumber.toString())
+    pinRegistrationWriter.flush()
+    pinRegistrationWriter.close()
 
     // Write the word 'out/in' to /sys/class/gpio/gpio{pinnumber}/direction to make it an output or input pin.
     pinModeWriter.write(direction)
+    pinRegistrationWriter.flush()
     pinModeWriter.close()
   } catch {
     case e: IOException => throw new GPIOException(
@@ -46,6 +49,7 @@ abstract class GPIOPin(pinNumber: Int, direction: String) {
 
       // Write the number of the pin to /sys/class/gpio/unexport to close access to it
       pinRegistrationWriter.write(pinNumber.toString())
+      pinRegistrationWriter.flush()
       pinRegistrationWriter.close()
     } catch {
       case e:IOException => throw new GPIOException(
