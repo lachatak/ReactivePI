@@ -18,5 +18,5 @@ low level access to the IO ports
 [Please check the wiki for more information](https://github.com/wmeints/ReactivePI/wiki)
 
 ## Development status
-At this point, the GPIO and I2C protocols are supported. It needs more testing, but you can start to use this library
-by compiling and publishing it locally if you want to.
+GPIO has been tested and works. The I2C driver has not been tested yet, so it might not work.
+Feel free to compile the library locally if you like. Please leave an issue on this repo when something doesn't work.
