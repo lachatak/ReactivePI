@@ -1,4 +1,4 @@
-name := "reactivepi-core"
+name := "core"
 
 organization := "nl.fizzylogic.reactivepi"
 

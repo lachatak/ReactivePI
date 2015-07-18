@@ -1,4 +1,6 @@
-name := "reactivepi-actors"
+name := "actors"
+
+organization := "nl.fizzylogic.reactivepi"
 
 scalaVersion:= "2.11.6"
 
