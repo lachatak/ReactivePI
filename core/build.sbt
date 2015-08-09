@@ -22,7 +22,7 @@ nativeGenerateHeaders := {
 }
 
 nativeCompile := {
-  val compileCommand = "gcc -Wl -add-stdcall-alias -I\"$JAVA_HOME/include/\" -I\"$JAVA_HOME/include/darwin\" -I\"$JAVA_HOME/include/linux/\" -shared -o target/reactivepi.so " + nativeDeviceSources.mkString(" ")
+  val compileCommand = "gcc -Wl -add-stdcall-alias -I$JAVA_HOME/include -I$JAVA_HOME/include/darwin -I$JAVA_HOME/include/linux -shared -o target/reactivepi.so " + nativeDeviceSources.mkString(" ")
 
   println(compileCommand)
 
