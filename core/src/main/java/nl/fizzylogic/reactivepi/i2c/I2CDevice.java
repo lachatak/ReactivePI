@@ -1,11 +1,22 @@
 package nl.fizzylogic.reactivepi.i2c;
 
+import nl.fizzylogic.reactivepi.NativeUtils;
+
 public class I2CDevice {
     private int busHandle;
     private int deviceAddress;
 
     static {
-        System.loadLibrary("reactivepi");
+        try {
+            System.loadLibrary("reactivepi");
+        }catch(Exception initialLoadError) {
+            try {
+                NativeUtils.loadLibraryFromJar("/reactivepi.so");
+            }
+            catch(Exception finalLoadError) {
+
+            }
+        }
     }
 
     /**
