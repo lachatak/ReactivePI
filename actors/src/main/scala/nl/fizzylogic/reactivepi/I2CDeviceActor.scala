@@ -15,14 +15,14 @@
 package nl.fizzylogic.reactivepi
 
 import akka.actor.{Props, Actor}
-import nl.fizzylogic.reactivepi.i2c.I2CDriver
+import nl.fizzylogic.reactivepi.i2c.{I2CDevice}
 
 object I2CDeviceActor {
   def props(bus: Int, address: Int): Props = Props(new I2CDeviceActor(bus,address))
 }
 
 class I2CDeviceActor(bus: Int, address: Int) extends Actor {
-  private val driver = new I2CDriver(bus,address)
+  private val driver = I2CDevice.open(bus,address)
 
   def receive: PartialFunction[Any, Unit] = {
     case I2C.Read(register, length) => readFromDevice(register, length)
@@ -31,9 +31,9 @@ class I2CDeviceActor(bus: Int, address: Int) extends Actor {
 
   private def writeToDevice(register: Byte, data: Array[Byte]) = {
     if(register == -1) {
-      driver.write(data, data.length)
+      driver.write(data)
     } else {
-      driver.write(register, data, data.length)
+      driver.write(register, data)
     }
   }
 

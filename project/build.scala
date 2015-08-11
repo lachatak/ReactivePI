@@ -29,9 +29,9 @@ object ReactivePIBuild extends Build {
   // Common settings for all build modules.
   val commonSettings = buildSettings ++ Seq(ScalastylePlugin.buildSettings: _*)
 
+  lazy val root = Project(id = "reactivepi", base = file(".")) aggregate("core","actors", "temperature_sensor")
+
   lazy val core = Project(id = "core", base = file("core"), settings = commonSettings)
   lazy val actors = Project(id = "actors", base = file("actors"), settings = commonSettings) dependsOn("core")
-
-  lazy val reactivepi = Project(id = "reactivepi",
-    base = file(".")) aggregate("core","actors")
+  lazy val temperature_sensor = Project(id ="temperature_sensor", base = file("samples/temperature_sensor"), settings = commonSettings) dependsOn("core")
 }

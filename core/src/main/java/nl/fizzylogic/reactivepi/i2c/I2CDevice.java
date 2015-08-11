@@ -10,11 +10,13 @@ public class I2CDevice {
         try {
             System.loadLibrary("reactivepi");
         }catch(Exception initialLoadError) {
+            System.out.println(initialLoadError.toString());
+
             try {
                 NativeUtils.loadLibraryFromJar("/reactivepi.so");
             }
             catch(Exception finalLoadError) {
-
+                System.out.println(finalLoadError.toString());
             }
         }
     }
