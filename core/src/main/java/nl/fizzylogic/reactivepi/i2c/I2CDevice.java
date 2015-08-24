@@ -1,23 +1,22 @@
 package nl.fizzylogic.reactivepi.i2c;
 
+import nl.fizzylogic.reactivepi.DriverInitializationException;
 import nl.fizzylogic.reactivepi.NativeUtils;
 
+import java.io.IOException;
+
+/**
+ * Allows communication with a I2C device connected
+ */
 public class I2CDevice {
     private int busHandle;
     private int deviceAddress;
 
     static {
         try {
-            System.loadLibrary("reactivepi");
-        }catch(Exception initialLoadError) {
-            System.out.println(initialLoadError.toString());
-
-            try {
-                NativeUtils.loadLibraryFromJar("/reactivepi.so");
-            }
-            catch(Exception finalLoadError) {
-                System.out.println(finalLoadError.toString());
-            }
+            NativeUtils.loadLibraryFromJar("/reactivepi.so");
+        } catch (IOException e) {
+            throw new DriverInitializationException("Failed to load native driver. ");
         }
     }
 
