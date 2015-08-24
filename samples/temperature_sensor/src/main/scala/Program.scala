@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import nl.fizzylogic.reactivepi.i2c.I2CDevice
+import nl.fizzylogic.reactivepi.i2c.{Convert, I2CDevice}
 
 object Program extends App {
   val MCP9808_REG_CONFIG = 0x01
@@ -36,23 +36,18 @@ object Program extends App {
   val BUS_ID = 1
   val DEVICE_ADDRESS = 0x18
 
-  // Device is identified as: Adafruit MCP9089
-  val MANUF_ID = 0x0054
-  val DEVICE_ID = 0x0400
 
   val device = I2CDevice.open(BUS_ID, DEVICE_ADDRESS)
 
   val x1 = wordToInt(device.read(MCP9808_REG_MANUF_ID, 2))
   val x2 = wordToInt(device.read(MCP9808_REG_DEVICE_ID, 2))
 
-  if (x1 == MANUF_ID && x2 == DEVICE_ID) {
-    val temperature = readTemperature()
+  val temperature = readTemperature()
 
-    println(s"Manufacturer ID: $x1, Device identifier: $x2")
-    println(s"Temperature: $temperature degrees Celcius")
-  } else {
-    println("Failed to initialize device.")
-  }
+  println(s"Manufacturer ID: $x1, Device identifier: $x2")
+  println(s"Temperature: $temperature degrees Celcius")
+
+  device.close()
 
   def readTemperature(): Int = {
     val data = device.read(MCP9808_REG_AMBIENT_TEMP, 2)
@@ -68,6 +63,6 @@ object Program extends App {
   }
 
   def wordToInt(data: Array[Byte]): Int = {
-    return ((data(0) & 0xFF) << 8) + (data(1) << 0xFF)
+    return Convert.wordToInt16(data)
   }
 }
